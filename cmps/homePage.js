@@ -2,7 +2,7 @@ import surveyService from '../services/surveyService.js'
 
 export default {
     template: `
-        <section class="home-page" v-if="!this.$route.query.secret">
+        <section class="home-page" v-if="showPage">
             <div>
                 <h2>ברוכים הבאים לניסוי פתרון בעיות</h2>
                 <h2>תודה על השתתפותך</h2>
@@ -40,7 +40,8 @@ export default {
         return {
             name: null,
             yob: null,
-            gender: null
+            gender: null,
+            showPage: false
         }
     },
     methods: {
@@ -56,7 +57,7 @@ export default {
     },
     created() {
         surveyService.initExp();
-        // console.log(this.$route.query.secret);
+        console.log(this.$route.query.secret);
         // if (!this.$route.query.secret) {
             // window.location.href = "http://www.google.com"
         // }
