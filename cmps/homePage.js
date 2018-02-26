@@ -57,7 +57,7 @@ export default {
     },
     created() {
         surveyService.initExp();
-        console.log(window.location.href);
+        console.log(window.location.href.href);
         if (this.$route.query.secret) {
             this.showPage = true;
         }
