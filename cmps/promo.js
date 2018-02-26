@@ -17,7 +17,7 @@ export default {
         </form>
         <div v-else class="promo-main">
             <div :class="tryAgain" class="error-display">
-                <img src="../img/redx.png" class="x-img" />
+                <img src="img/redx.png" class="x-img" />
                 <h1 class="error-msg">חסר מחדש, החל מ-1000</h1>
                 <!-- <p>המספר האחרון הינו {{currNum}}</p> -->
             </div>

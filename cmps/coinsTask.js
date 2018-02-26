@@ -15,7 +15,7 @@ export default {
             <table id="coin-table" @drop="drop" @dragover="allowDrop" v-if="shouldShowTable">
                 <tr v-for="(row, i) in rows" v-if="showRow(i)">
                     <td v-for="(col, j) in cols" :class="setClassName(i, j)">
-                        <img v-if="deployCoins(i, j)" src="../img/coin.png" :id="setImgId(i, j)" class="coin-png" draggable="true" @dragstart="drag"/>
+                        <img v-if="deployCoins(i, j)" src="img/coin.png" :id="setImgId(i, j)" class="coin-png" draggable="true" @dragstart="drag"/>
                     </td>
                 </tr>
             </table>
