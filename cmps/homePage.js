@@ -53,6 +53,7 @@ export default {
     },
     created() {
         surveyService.initExp();
+        console.log(this.$route.query.secret);
         // if (!this.$route.query.secret) {
             // window.location.href = "http://www.google.com"
         // }
