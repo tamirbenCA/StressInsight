@@ -22,11 +22,11 @@ function initExp () {
 
 function _getAuth() {
     var authFromStorage = storageService.loadFromStorage(AUTH_KEY);
-    if (authFromStorage === 'avivit') {
+    if (authFromStorage === 'aavviivviitt') {
         return;
     } else {
         var authWord;
-        while (authWord !== 'avivit') {
+        while (authWord !== 'aavviivviitt') {
             authWord = prompt('אנא הכנס/י מילת זיהוי');
         }
         if (authWord === 'avivit') {
