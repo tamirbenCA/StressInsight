@@ -1,6 +1,7 @@
 import storageService from './storageService.js';
 
 const KEY = 'astresso';
+const AUTH_KEY = 'astresso-auth'
 const TIMER = 2.5;
 // const TIMER = 0.1;
 
@@ -11,11 +12,28 @@ var gPromo = null;
 var gTask = null;
 
 function initExp () {
+    _getAuth();
     var dataFromStorage = storageService.loadFromStorage(KEY);
     if (dataFromStorage) {
         gUsersAnss = dataFromStorage;
     }
     // console.log('gUsersAnss:', gUsersAnss);
+}
+
+function _getAuth() {
+    var authFromStorage = storageService.loadFromStorage(AUTH_KEY);
+    if (authFromStorage === 'avivit') {
+        return;
+    } else {
+        var authWord;
+        while (authWord !== 'avivit') {
+            authWord = prompt('אנא הכנס/י מילת זיהוי');
+        }
+        if (authWord === 'avivit') {
+            storageService.saveToStorage(AUTH_KEY, authWord);
+            return;
+        }
+    }
 }
 
 function saveSubject() {
@@ -88,6 +106,7 @@ function _shouldStress() {
 
 function clearLocalStorage() {
     storageService.clearStorage(KEY);
+    storageService.clearStorage(AUTH_KEY);
 }
 
 function exportToCsv(filename) {

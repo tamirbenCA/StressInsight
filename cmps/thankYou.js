@@ -14,7 +14,7 @@ export default {
     created() {
         surveyService.saveSubject();
         if (!surveyService.isCurrUser()) {
-            this.$router.push('/?secret=true');
+            this.$router.push('/');
         }
     }
 }

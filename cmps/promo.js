@@ -44,7 +44,7 @@ export default {
     },
     created() {
         if (!surveyService.isCurrUser()) {
-            this.$router.push('/?secret=true');
+            this.$router.push('/');
         }
         if (surveyService.isCurrUserStress()) {
             this.numInterval = 17;

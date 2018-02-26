@@ -4,7 +4,7 @@ export default {
     template: `
     <section>
         <h2>מסך אדמין</h2>
-        <router-link to='/?secret=true' tag="button" class="admin-btn btn-grey">נבדק חדש</router-link>
+        <router-link to='/' tag="button" class="admin-btn btn-grey">נבדק חדש</router-link>
         <button @click="saveData" class="admin-btn btn-green">שמור מידע למחשב</button>
         <button @click="clearStorage" class="admin-btn btn-red">מחק מידע local storage</button>
     </section>

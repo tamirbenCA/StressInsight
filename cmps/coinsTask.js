@@ -147,7 +147,7 @@ export default {
     },
     created() {
         if (!surveyService.isCurrUser()) {
-            this.$router.push('/?secret=true');
+            this.$router.push('/');
         }
     }
 }

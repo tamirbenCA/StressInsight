@@ -2,7 +2,7 @@ import surveyService from '../services/surveyService.js'
 
 export default {
     template: `
-        <section class="home-page" v-if="showPage">
+        <section class="home-page">
             <div>
                 <h2>ברוכים הבאים לניסוי פתרון בעיות</h2>
                 <h2>תודה על השתתפותך</h2>
@@ -32,16 +32,12 @@ export default {
             </form>
             <h5>השאלות מנוסחות בלשון זכר אולם פונות לשני המינים</h5>
     </section>
-    <section v-else>
-        <h2>יש לטעון את העמוד מחדש עם מילת הביטחון</h2>
-    </section>
     `,
     data() {
         return {
             name: null,
             yob: null,
             gender: null,
-            showPage: false
         }
     },
     methods: {
@@ -57,9 +53,5 @@ export default {
     },
     created() {
         surveyService.initExp();
-        console.log(this.$route.query.secret);
-        if (this.$route.query.secret) {
-            this.showPage = true;
-        }
     }
 }
