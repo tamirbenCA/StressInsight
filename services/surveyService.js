@@ -1,7 +1,8 @@
 import storageService from './storageService.js';
 
 const KEY = 'astresso';
-const AUTH_KEY = 'astresso-auth'
+const AUTH_KEY = 'astresso-auth';
+const AUTH_WORD = 'aavviivviitt'
 const TIMER = 2.5;
 // const TIMER = 0.1;
 
@@ -22,14 +23,14 @@ function initExp () {
 
 function _getAuth() {
     var authFromStorage = storageService.loadFromStorage(AUTH_KEY);
-    if (authFromStorage === 'aavviivviitt') {
+    if (authFromStorage === AUTH_WORD) {
         return;
     } else {
         var authWord;
-        while (authWord !== 'aavviivviitt') {
+        while (authWord !== AUTH_WORD) {
             authWord = prompt('אנא הכנס/י מילת זיהוי');
         }
-        if (authWord === 'avivit') {
+        if (authWord === AUTH_WORD) {
             storageService.saveToStorage(AUTH_KEY, authWord);
             return;
         }
