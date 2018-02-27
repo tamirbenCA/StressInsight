@@ -146,8 +146,8 @@ export default {
         this.startTime = Date.now();
     },
     created() {
-        // if (!surveyService.isCurrUser()) {
-            // this.$router.push('/');
-        // }
+        if (!surveyService.isCurrUser()) {
+            this.$router.push('/');
+        }
     }
 }

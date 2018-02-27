@@ -26,7 +26,6 @@ function initExp () {
 function initTimer() {
     var timerFromStorage = storageService.loadFromStorage(TIMER_KEY);
     if (timerFromStorage) {
-        console.log('timer from storage:', timerFromStorage)
         gTimer = timerFromStorage;
         return;
     }
@@ -133,6 +132,10 @@ function clearLocalStorage() {
 }
 
 function exportToCsv(filename) {
+    if (!storageService.loadFromStorage(DATA_KEY)) {
+        alert('אין מידע שמור בזיכרון');
+        return;
+    };
     var rows = _createData(storageService.loadFromStorage(DATA_KEY));
     var BOM = String.fromCharCode(0xFEFF);
 

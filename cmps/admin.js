@@ -6,8 +6,8 @@ export default {
         <h2>מסך אדמין</h2>
         <router-link to='/' tag="button" class="admin-btn btn-grey">נבדק חדש</router-link>
         <button @click="saveData" class="admin-btn btn-green">שמור מידע למחשב</button>
-        <button @click="clearStorage" class="admin-btn btn-red">איתחול ניסוי</button>
         <button @click = "setTimer" class="admin-btn btn-blue">קבע טיימר</button>
+        <button @click="clearStorage" class="admin-btn btn-red">איתחול ניסוי</button>
     </section>
     `,
     methods: {
