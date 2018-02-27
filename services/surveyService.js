@@ -1,14 +1,13 @@
 import storageService from './storageService.js';
 
-const KEY = 'astresso';
+const DATA_KEY = 'astresso';
 const AUTH_KEY = 'astresso-auth';
 const TIMER_KEY = 'astresso-timer'
-// const AUTH_WORD = 'aavviivviitt'
-const AUTH_WORD = 'ben'
+const AUTH_WORD = 'aavviivviitt'
 
 
 var gUsersAnss = [];
-var gTimer = 2.5;
+var gTimer = null;
 
 var gCurrUser = null;
 var gPromo = null;
@@ -17,7 +16,7 @@ var gTask = null;
 function initExp () {
     getAuth();
     initTimer();
-    var dataFromStorage = storageService.loadFromStorage(KEY);
+    var dataFromStorage = storageService.loadFromStorage(DATA_KEY);
     if (dataFromStorage) {
         gUsersAnss = dataFromStorage;
     }
@@ -63,7 +62,7 @@ function saveSubject() {
     var subject = {...gCurrUser, ...gPromo, ...gTask}
     gUsersAnss.push(subject);
     // console.log('gUsersAnss:', gUsersAnss);
-    storageService.saveToStorage(KEY, gUsersAnss);
+    storageService.saveToStorage(DATA_KEY, gUsersAnss);
 }
 
 function setUser(userInfo) {
@@ -128,13 +127,13 @@ function _shouldStress() {
 }
 
 function clearLocalStorage() {
-    storageService.clearStorage(KEY);
+    storageService.clearStorage(DATA_KEY);
     storageService.clearStorage(AUTH_KEY);
     storageService.clearStorage(TIMER_KEY);
 }
 
 function exportToCsv(filename) {
-    var rows = _createData(storageService.loadFromStorage(KEY));
+    var rows = _createData(storageService.loadFromStorage(DATA_KEY));
     var BOM = String.fromCharCode(0xFEFF);
 
     var processRow = function (row) {
