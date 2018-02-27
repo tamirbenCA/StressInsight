@@ -23,10 +23,10 @@ export default {
         <div v-if="taskState==='task-show'">
             <input type="submit" value="פתרתי" @click=startTask />
         </div>
-        <div v-if="taskState==='task-how'">
+        <div v-if="taskState==='task-how'" class="task-how">
             <form @submit.prevent="submitReport">
                 <p>אנשים הפותרים חידה זו פותרים אותה באחת משתי הדרכים המתוארות:</p>
-                <div>
+                <div class="radio-btns">
                     <div>
                         <input type="radio" v-model="selfReport" name="selfReport" value="insight" id="insight" required>
                         <label for="insight">לאחר מספר ניסיונות לפתור, הייתה תחושה של מבוי סתום ותקיעות. לא ניתן היה להתקדם לעבר הפתרון. ואז פתאום, התשובה צצה "משום מקום".</label>
@@ -37,7 +37,7 @@ export default {
                     </div>
                 </div>
                 <div>
-                    <p>נא לכתוב תיאור קצר מהי הרגשתך כעת:</p>
+                    <p>תאר בקצרה את הרגשתך כעת:</p>
                     <textarea v-model="comment" cols="60" rows="3" required></textarea>
                 </div>
                 <input type="submit" value="המשך">
@@ -146,8 +146,8 @@ export default {
         this.startTime = Date.now();
     },
     created() {
-        if (!surveyService.isCurrUser()) {
-            this.$router.push('/');
-        }
+        // if (!surveyService.isCurrUser()) {
+            // this.$router.push('/');
+        // }
     }
 }

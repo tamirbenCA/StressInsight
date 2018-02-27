@@ -109,6 +109,37 @@ h4, h5 {
     background-color: #23d160;
 }
 
+.btn-blue {
+    background-color: #1496ed;
+}
+
 .btn-grey {
     color: black;
+}
+
+#timerProgress {
+    width: 100%;
+    /* background-color: #4CAF50; */
+    background-color: #ff2b56;
+}
+
+#timerBar {
+    width: 1%;
+    height: 30px;
+    margin-top: 10px;
+    background-color: #ddd;
+}
+
+.task-how {
+    width: 506px;
+}
+.radio-btns {
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+textarea {
+    width: 500px;
 }

@@ -2,18 +2,21 @@ import storageService from './storageService.js';
 
 const KEY = 'astresso';
 const AUTH_KEY = 'astresso-auth';
-const AUTH_WORD = 'aavviivviitt'
-const TIMER = 2.5;
-// const TIMER = 0.1;
+const TIMER_KEY = 'astresso-timer'
+// const AUTH_WORD = 'aavviivviitt'
+const AUTH_WORD = 'ben'
+
 
 var gUsersAnss = [];
+var gTimer = 2.5;
 
 var gCurrUser = null;
 var gPromo = null;
 var gTask = null;
 
 function initExp () {
-    _getAuth();
+    getAuth();
+    initTimer();
     var dataFromStorage = storageService.loadFromStorage(KEY);
     if (dataFromStorage) {
         gUsersAnss = dataFromStorage;
@@ -21,7 +24,26 @@ function initExp () {
     // console.log('gUsersAnss:', gUsersAnss);
 }
 
-function _getAuth() {
+function initTimer() {
+    var timerFromStorage = storageService.loadFromStorage(TIMER_KEY);
+    if (timerFromStorage) {
+        console.log('timer from storage:', timerFromStorage)
+        gTimer = timerFromStorage;
+        return;
+    }
+    else {
+        setTimer();
+    }
+}
+
+function setTimer() {
+    var timer = +prompt('אנא קבע/י טיימר בדקות');
+    storageService.saveToStorage(TIMER_KEY, timer);
+    gTimer = timer;
+    return;
+}
+
+function getAuth() {
     var authFromStorage = storageService.loadFromStorage(AUTH_KEY);
     if (authFromStorage === AUTH_WORD) {
         return;
@@ -87,7 +109,7 @@ function setTask(taskRes) {
 }
 
 function getTimer() {
-    return 1000 * 60 * TIMER
+    return 1000 * 60 * gTimer
 }
 
 function _millisToMinutesAndSeconds(millis) {
@@ -108,6 +130,7 @@ function _shouldStress() {
 function clearLocalStorage() {
     storageService.clearStorage(KEY);
     storageService.clearStorage(AUTH_KEY);
+    storageService.clearStorage(TIMER_KEY);
 }
 
 function exportToCsv(filename) {
@@ -177,6 +200,7 @@ function _createData(dataArr) {
 
 export default {
     initExp,
+    getAuth,
     saveSubject,
     setUser,
     isCurrUser,
@@ -185,5 +209,6 @@ export default {
     setTask,
     getTimer,
     clearLocalStorage,
-    exportToCsv
+    exportToCsv,
+    setTimer
 }

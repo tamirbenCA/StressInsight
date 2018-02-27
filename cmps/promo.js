@@ -1,4 +1,5 @@
-import surveyService from '../services/surveyService.js'
+import surveyService from '../services/surveyService.js';
+import timerBar from './timerBar.js';
 
 export default {
     template: `
@@ -16,16 +17,18 @@ export default {
             <input type="submit" value="המשך" />
         </form>
         <div v-else class="promo-main">
+            <timer-bar :timer=timer></timer-bar>
             <div :class="tryAgain" class="error-display">
-                <img src="img/redx.png" class="x-img" />
                 <h1 class="error-msg">חסר מחדש, החל מ-1000</h1>
-                <!-- <p>המספר האחרון הינו {{currNum}}</p> -->
             </div>
             <h1 :class="showNumber">1000</h1>
             <form @submit.prevent="nextStep">
                 <input type="number" v-model="userInput" required autofocus />
                 <input type="submit" value="אישור" />
             </form>
+            <div :class="tryAgain" class="error-display">
+                <img src="img/redx.png" class="x-img" />
+            </div>                
         </div>
     </section>
     `,
@@ -39,8 +42,12 @@ export default {
             timer: this.setTimer(),
             numInterval: null,
             timeInterval: null,
-            userInput: null
+            userInput: null,
+            displayNum: true
         }
+    },
+    components: {
+        timerBar
     },
     created() {
         if (!surveyService.isCurrUser()) {
@@ -54,7 +61,7 @@ export default {
     },
     computed: {
         showNumber() {
-            if (this.promoState === 'promo-start') {
+            if (this.promoState === 'promo-start' && this.displayNum) {
                 return 'show-number'
             } else {
                 return 'hide-number'
@@ -75,7 +82,10 @@ export default {
         startPromo() {
             this.promoState = 'promo-start';
             this.startTime = Date.now();
-            this.timeInterval = setTimeout(this.endPromo, this.timer)
+            this.timeInterval = setTimeout(this.endPromo, this.timer);
+            setTimeout(_ => { 
+                this.displayNum = false; 
+            }, 3000)
         },
         nextStep() {
             if (this.currNum === (+this.userInput + this.numInterval)) {

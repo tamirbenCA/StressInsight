@@ -5,7 +5,7 @@ export default {
         <section class="home-page">
             <div>
                 <h2>ברוכים הבאים לניסוי פתרון בעיות</h2>
-                <h2>תודה על השתתפותך</h2>
+                <h2>תודה על השתתפותכם</h2>
             </div>
             <form  id="user-form" @submit.prevent="startTest">
                 <div>
