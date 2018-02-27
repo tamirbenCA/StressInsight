@@ -12,6 +12,7 @@ export default {
             <p>כאשר אתה חושב שהצלחת, לחץ על כפתור "פתרתי"</p>
         </div>
         <div>
+            <p v-if="taskState==='task-play'">פתור את התרגיל ע"י גרירת שלושת המטבעות עם העכבר.</p>
             <table id="coin-table" @drop="drop" @dragover="allowDrop" v-if="shouldShowTable">
                 <tr v-for="(row, i) in rows" v-if="showRow(i)">
                     <td v-for="(col, j) in cols" :class="setClassName(i, j)">

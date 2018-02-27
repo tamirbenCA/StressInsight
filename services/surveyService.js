@@ -121,8 +121,12 @@ function _getId() {
 }
 
 function _shouldStress() {
-    if (gUsersAnss.length % 2 === 0) return true;
-    else return false;
+    // this code is predictable odd numbers stress and evan numbers non-stress:
+    // if (gUsersAnss.length % 2 === 0) return true;
+    // else return false;
+    
+    // this code is mathematical randomm 50:50 chance:
+    return Math.random() < 0.5;
 }
 
 function clearLocalStorage() {

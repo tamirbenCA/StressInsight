@@ -62,11 +62,12 @@ h4, h5 {
 .error-display {
     width: 176px;
     display: flex;
-    flex-direction: column;
 }
 
-.error-msg {
-    text-align: center;
+.test {
+    visibility: visible;
+    height: 30px;
+    display: block;
 }
 
 .span-x {
@@ -77,6 +78,7 @@ h4, h5 {
 
 .x-img {
     margin: auto;
+    margin-top: 10px;
 }
 
 .promo-main {
@@ -133,6 +135,7 @@ h4, h5 {
 .task-how {
     width: 506px;
 }
+
 .radio-btns {
     display: flex;
     flex-direction: column;
@@ -140,6 +143,7 @@ h4, h5 {
     justify-content: space-between;
     margin-bottom: 20px;
 }
+
 textarea {
     width: 500px;
 }

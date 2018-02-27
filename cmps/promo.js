@@ -4,7 +4,7 @@ import timerBar from './timerBar.js';
 export default {
     template: `
     <section>
-        <form v-if="promoState === 'promo-show'" @submit.prevent="startPromo">
+        <form v-if="promoState==='promo-show'" @submit.prevent="startPromo">
             <p>מיד יופיע מספר ממנו יש להחסיר {{numInterval}}.</p>
             <p>מהתוצאה יש להחסיר שוב {{numInterval}}.</p>
             <p>ומן התוצאה הזו יש להחסיר שוב {{numInterval}}.</p>
@@ -18,15 +18,14 @@ export default {
         </form>
         <div v-else class="promo-main">
             <timer-bar :timer=timer></timer-bar>
-            <div :class="tryAgain" class="error-display">
-                <h1 class="error-msg">חסר מחדש, החל מ-1000</h1>
+            <div :class="showMsg">
+                <h1> {{ msg }} </h1>
             </div>
-            <h1 :class="showNumber">1000</h1>
             <form @submit.prevent="nextStep">
                 <input type="number" v-model="userInput" required autofocus />
                 <input type="submit" value="אישור" />
             </form>
-            <div :class="tryAgain" class="error-display">
+            <div v-if="numInterval===17 && promoState!=='promo-start'" :class="showMsg" class="error-display">
                 <img src="img/redx.png" class="x-img" />
             </div>                
         </div>
@@ -43,35 +42,19 @@ export default {
             numInterval: null,
             timeInterval: null,
             userInput: null,
-            displayNum: true
+            msgDisplay: null,
+            msg: null
         }
     },
     components: {
         timerBar
     },
-    created() {
-        if (!surveyService.isCurrUser()) {
-            this.$router.push('/');
-        }
-        if (surveyService.isCurrUserStress()) {
-            this.numInterval = 17;
-        } else {
-            this.numInterval = 1;
-        }
-    },
     computed: {
-        showNumber() {
-            if (this.promoState === 'promo-start' && this.displayNum) {
+        showMsg() {
+            if (this.promoState !== 'promo-show' && this.msgDisplay) {
                 return 'show-number'
             } else {
                 return 'hide-number'
-            }
-        },
-        tryAgain() {
-            if (this.promoState === 'wrong') {
-                return 'show-error'
-            } else {
-                return 'hide-error'
             }
         }
     },
@@ -82,13 +65,21 @@ export default {
         startPromo() {
             this.promoState = 'promo-start';
             this.startTime = Date.now();
-            this.timeInterval = setTimeout(this.endPromo, this.timer);
-            setTimeout(_ => { 
-                this.displayNum = false; 
-            }, 3000)
+            setTimeout(this.endPromo, this.timer);
+            this.displayMsg(1000);
+        },
+        displayMsg(msg) {
+            clearTimeout(this.timeInterval)
+            this.msg = msg
+            this.msgDisplay = true;
+            this.timeInterval = setTimeout(_ => { 
+                this.msgDisplay = false; 
+            }, 3000)  
         },
         nextStep() {
             if (this.currNum === (+this.userInput + this.numInterval)) {
+                clearTimeout(this.timeInterval)
+                this.msgDisplay = false; 
                 this.promoState = 'correct';
                 this.currNum = +this.userInput;
                 this.userInput = null;
@@ -96,19 +87,27 @@ export default {
                 if (this.numInterval === 17) {
                     this.errorCount++;
                     this.promoState = 'wrong';
+                    this.displayMsg('חסר מחדש, החל מ-1000')
                     this.userInput = null;
                     this.currNum = 1000;
                 }
                 else {
-                    this.promoState = 'correct';
-                    this.errorCount++;
-                    this.currNum = +this.userInput;
-                    this.userInput = null;
+                    if (this.userInput.length !== 3) {
+                        this.promoState = 'wrong';
+                        this.displayMsg('יש להכניס מספר בן 3 ספרות');
+                        this.userInput = null;
+                    } else {
+                        clearTimeout(this.timeInterval)
+                        this.msgDisplay = false;
+                        this.promoState = 'correct';
+                        this.errorCount++;
+                        this.currNum = +this.userInput;
+                        this.userInput = null;
+                    }
                 }
             }
         },
         endPromo() {
-            clearTimeout(this.timeInterval)
             this.endTime = Date.now();
             var promoRes = {
                 startTime: this.startTime,
@@ -117,6 +116,16 @@ export default {
             }
             surveyService.setPromo(promoRes);
             this.$router.push('/task')
+        }
+    },
+    created() {
+        if (!surveyService.isCurrUser()) {
+            this.$router.push('/');
+        }
+        if (surveyService.isCurrUserStress()) {
+            this.numInterval = 17;
+        } else {
+            this.numInterval = 1;
         }
     }
 }
