@@ -20,11 +20,11 @@ export default {
                     <div class="genderPicker">
                         <div>
                             <input type="radio" v-model="gender" name="gender" value="זכר" id="male" required>
-                            <label for="male">זכר</label>
+                            <label for="male">בן</label>
                         </div>
                         <div>
                             <input type="radio" v-model="gender" name="gender" value="נקבה" id="female">
-                            <label for="female">נקבה</label>
+                            <label for="female">בת</label>
                         </div>
                     </div>
                 </div>

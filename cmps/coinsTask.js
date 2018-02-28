@@ -22,7 +22,7 @@ export default {
             </table>
         </div>
         <div v-if="taskState==='task-show'">
-            <input type="submit" value="פתרתי" @click=startTask />
+            <input type="submit" value="פתרתי" @click=solveTask />
         </div>
         <div v-if="taskState==='task-how'" class="task-how">
             <form @submit.prevent="submitReport">
@@ -121,7 +121,7 @@ export default {
             surveyService.setTask(taskRes)
             setTimeout(_ => { this.$router.push('/thankyou')},3000);
         },
-        startTask() {
+        solveTask() {
             this.endTime = Date.now();
             this.taskState = 'task-how'
         },
