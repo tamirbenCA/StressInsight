@@ -97,7 +97,8 @@ function setPromo(promoRes) {
 
 function setTask(taskRes) {
     var task = {
-        taskTimeToSolution: _millisToMinutesAndSeconds(taskRes.timeToSolution),
+        // taskTimeToSolution: _millisToMinutesAndSeconds(taskRes.timeToSolution),
+        taskTimeToSolution: taskRes.timeToSolution,
         taskSolved: taskRes.solved,
         taskSelfReport: taskRes.selfReport,
         taskComment: taskRes.comment
@@ -110,6 +111,7 @@ function getTimer() {
     return 1000 * 60 * gTimer
 }
 
+// not in use for now. it can be reactivate in line 100;
 function _millisToMinutesAndSeconds(millis) {
     var minutes = Math.floor(millis / 60000);
     var seconds = ((millis % 60000) / 1000).toFixed(0);
