@@ -32,7 +32,7 @@ export default {
     `,
     data() {
         return {
-            // rawData: surveyService.getData()
+            // rawData: surveyService.getDataFromStorage()
             min: Infinity,
             max: 0,
             avg: 0
@@ -71,7 +71,7 @@ export default {
     },
     computed: {
         rawData() {
-            return surveyService.getData();
+            return surveyService.getDataFromStorage();
         },
         numOfStress() {
             var count = 0;
@@ -88,7 +88,6 @@ export default {
             return ((count / this.rawData.length) * 100)
         },
         maxTime() {
-            this.taskTimeStat();
             return this.max;
         },
         minTime() {
@@ -99,7 +98,12 @@ export default {
         }
     },
     created() {
-        // surveyService.getAuth();
-        surveyService.initExp();
+        surveyService.getAuth();
+        // surveyService.initExp();
+    },
+    mounted() {
+        if (this.rawData) {
+            this.taskTimeStat();
+        }
     }
 }

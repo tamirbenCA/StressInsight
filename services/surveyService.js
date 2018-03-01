@@ -15,15 +15,15 @@ var gTask = null;
 
 function initExp () {
     getAuth();
-    initTimer();
-    var dataFromStorage = storageService.loadFromStorage(DATA_KEY);
+    _initTimer();
+    var dataFromStorage = getDataFromStorage();
     if (dataFromStorage) {
         gUsersAnss = dataFromStorage;
     }
     // console.log('gUsersAnss:', gUsersAnss);
 }
 
-function initTimer() {
+function _initTimer() {
     var timerFromStorage = storageService.loadFromStorage(TIMER_KEY);
     if (timerFromStorage) {
         gTimer = timerFromStorage;
@@ -34,8 +34,8 @@ function initTimer() {
     }
 }
 
-function getData() {
-    return gUsersAnss;
+function getDataFromStorage() {
+    return storageService.loadFromStorage(DATA_KEY);
 }
 
 function setTimer() {
@@ -92,8 +92,8 @@ function isCurrUser() {
 function setPromo(promoRes) {
     var promo = {
         promoErrorCount: promoRes.errorCount,
-        promoStartTime: new Date(promoRes.startTime).toLocaleString('en-GB'),
-        promoEndTime: new Date(promoRes.endTime).toLocaleString('en-GB')
+        promoStartTime: new Date(promoRes.startTime).toLocaleTimeString('en-GB'),
+        promoEndTime: new Date(promoRes.endTime).toLocaleTimeString('en-GB')
     }
     gPromo = promo;
     // console.log('promo:', gPromo);
@@ -213,7 +213,7 @@ function _createData(dataArr) {
 export default {
     getAuth,
     getTimer,
-    getData,
+    getDataFromStorage,
     initExp,
     saveSubject,
     setUser,
