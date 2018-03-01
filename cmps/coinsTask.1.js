@@ -15,7 +15,7 @@ export default {
             <p v-if="taskState==='task-play'">פתור את התרגיל ע"י גרירת שלושת המטבעות עם העכבר.</p>
             <table id="coin-table" @drop="drop" @dragover="allowDrop" v-if="shouldShowTable">
                 <tr v-for="(row, i) in rows" v-if="showRow(i)">
-                    <td v-for="(col, j) in cols" :id="setCellId(i, j)">
+                    <td v-for="(col, j) in cols" :class="setClassName(i, j)">
                         <img v-if="deployCoins(i, j)" src="img/coin.png" :id="setImgId(i, j)" class="coin-png" draggable="true" @dragstart="drag"/>
                     </td>
                 </tr>
@@ -87,7 +87,7 @@ export default {
             if (i > 1 && i < 6)
                 return true;
         },
-        setCellId(i, j) {
+        setClassName(i, j) {
             return 'cell-' + i + '-' + j;
         },
         setImgId(i, j) {
@@ -100,9 +100,9 @@ export default {
           }
         },
         endTask() {
-            var cell1 = document.querySelector('#cell-3-4 > img');
-            var cell2 = document.querySelector('#cell-3-10 > img');
-            var cell3 = document.querySelector('#cell-6-7 > img');
+            var cell1 = document.querySelector('.cell-3-4 > img');
+            var cell2 = document.querySelector('.cell-3-10 > img');
+            var cell3 = document.querySelector('.cell-6-7 > img');
 
             if (cell1 && cell2 && cell3) {
                 this.solved = true;
@@ -133,8 +133,7 @@ export default {
             ev.dataTransfer.setData("text/html", ev.target.id);
         },
         drop(ev) {
-            var coord = this.getCellCoord(ev.target.id)
-            if (this.taskState !== 'task-play' || this.moveCount === 3 || (coord.i + coord.j) % 2 === 0) return;
+            if (this.taskState !== 'task-play' || this.moveCount === 3) return;
             ev.preventDefault();
             var data = ev.dataTransfer.getData("text/html");
             ev.target.appendChild(document.getElementById(data));
@@ -142,13 +141,6 @@ export default {
             if (this.moveCount === 3) {
                 this.endTask();
             }
-        },
-        getCellCoord(strCellId) {
-            var coord = {};
-            coord.i = +strCellId.substring(5, strCellId.lastIndexOf('-'));
-            coord.j = +strCellId.substring(strCellId.lastIndexOf('-') + 1);
-            // console.log('coord', coord);
-            return coord;
         }
     },
     mounted() {
