@@ -34,6 +34,10 @@ function initTimer() {
     }
 }
 
+function getData() {
+    return gUsersAnss;
+}
+
 function setTimer() {
     var timer = +prompt('אנא קבע/י טיימר בדקות');
     storageService.saveToStorage(TIMER_KEY, timer);
@@ -207,15 +211,16 @@ function _createData(dataArr) {
 }
 
 export default {
-    initExp,
     getAuth,
+    getTimer,
+    getData,
+    initExp,
     saveSubject,
     setUser,
     isCurrUser,
     isCurrUserStress,
     setPromo,
     setTask,
-    getTimer,
     clearLocalStorage,
     exportToCsv,
     setTimer
