@@ -21,11 +21,11 @@ export default {
                 <p>מספר נבדקים במסלול לחץ: {{numOfStress}}</p>
                 <p>מספר נבדקים במסלול לא-לחץ: {{rawData.length - numOfStress}}</p>
                 <p>אחוז הנבדקים שפתר בהצלחה את משימת המטבעות: {{successRate}}%</p>
-                <p>זמן הפתרון הארוך ביותר: {{maxTime}}ms</p>
-                <p>זמן הפתרון הקצר ביותר: {{minTime}}ms</p>
-                <p>זמן הפתרון הממוצע: {{avgTime}}ms</p>
-                <p></p>
-                <p></p>
+                <div v-if="successRate > 0">
+                    <p>זמן הפתרון הארוך ביותר: {{maxTime}}ms</p>
+                    <p>זמן הפתרון הקצר ביותר: {{minTime}}ms</p>
+                    <p>זמן הפתרון הממוצע: {{avgTime}}ms</p>
+                </div>
             </div>
         </div>
     </section>
